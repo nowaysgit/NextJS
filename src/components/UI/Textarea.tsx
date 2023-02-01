@@ -1,4 +1,4 @@
-import { Dispatch, memo, SetStateAction } from 'react'
+import { Dispatch, memo } from 'react'
 
 export interface TextareaProps {
   title?: string

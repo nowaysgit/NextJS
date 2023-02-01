@@ -24,7 +24,10 @@ export default memo(function MessagesForm(props: INumbersFormProps) {
       <div>
         <Button
           text="Разместить сообщение"
-          onClick={() => props.onSubmit(author, text)}
+          onClick={(e) => {
+            e.preventDefault()
+            props.onSubmit(author, text)
+          }}
           disabled={author === '' || text === ''}
         />
       </div>

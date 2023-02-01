@@ -18,6 +18,11 @@ export default async function handler(
   res: NextApiResponse<Data>,
 ) {
   try {
+    if (req.method !== 'GET') {
+      res.status(405).json({ error: 'Only GET requests allowed' })
+      return
+    }
+
     const dataFromFile = await Read<INumber>('average-numbers')
     res.status(200).json({ data: dataFromFile })
   } catch (e) {

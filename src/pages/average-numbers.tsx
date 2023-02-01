@@ -11,25 +11,28 @@ export default function AverageNumbers() {
   const [log, setLog] = useState<INumber[]>([])
 
   useEffect(() => {
-    fetch('/api/get/numbers')
-      .then((res) => res.json())
-      .then(({ data }: { data: INumber[] }) => {
-        setLog(data)
-      })
+    const fetchData = async () => {
+      const response = await fetch('/api/get/numbers')
+      const { data } = await response.json()
+      setLog(data)
+    }
+
+    fetchData().catch(console.error)
   }, [])
 
-  const sendNumber = (value: string) => {
-    fetch('/api/post/numbers', {
-      method: 'POST',
-      body: JSON.stringify(value),
-    })
-      .then((res) => res.json())
-      .then(({ data, error }: { data: INumber; error: boolean }) => {
-        if (!error) {
-          setLog([...log, data])
-        }
+  const sendNumber = async (value: string) => {
+    try {
+      const response = await fetch('/api/post/numbers', {
+        method: 'POST',
+        body: JSON.stringify(value),
       })
+      const { data } = await response.json()
+      setLog([...log, data])
+    } catch (e) {
+      console.error(e)
+    }
   }
+
   return (
     <>
       <div className="max-w-2xl">

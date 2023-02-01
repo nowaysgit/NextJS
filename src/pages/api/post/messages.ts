@@ -12,6 +12,11 @@ export default async function handler(
   res: NextApiResponse<Data>,
 ) {
   try {
+    if (req.method !== 'POST') {
+      res.status(405).json({ error: 'Only POST requests allowed' })
+      return
+    }
+
     const data = JSON.parse(req.body)
     const dataFromFile = await Read<IMessage>('messages')
     const newMessage = {
