@@ -16,6 +16,6 @@ export async function Write<T>(name: string, data: T[]): Promise<void> {
     const filePath = path.join(process.cwd(), 'db', `${name}.json`)
     await fs.writeFile(filePath, JSON.stringify(data), 'utf8')
   } catch (e) {
-    throw 'Can not write'
+    throw new Error('Can not write')
   }
 }

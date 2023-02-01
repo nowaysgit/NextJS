@@ -26,7 +26,10 @@ export default function AverageNumbers() {
         method: 'POST',
         body: JSON.stringify(value),
       })
-      const { data } = await response.json()
+      const { data, error } = await response.json()
+      if (error) {
+        throw new Error(error)
+      }
       setLog([...log, data])
     } catch (e) {
       console.error(e)
